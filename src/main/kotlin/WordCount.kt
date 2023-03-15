@@ -37,14 +37,38 @@ sealed class WordCount {
         }
 
         fun countWords(searchWord: String, words: List<String>) {
+            val matching: Int = count(words, searchWord)
+
+            println("$searchWord has a count of ${matching}")
+
+        }
+
+        private fun count(
+            words: List<String>,
+            searchWord: String
+        ): Int {
             val matching: List<Int> = words.map {
                 val split = it.split(" ")
                 val matching = split.filter { word -> word.equals(searchWord, ignoreCase = true) }
                 matching.size
             }
-
-            println("$searchWord has a count of ${matching.sum()}")
-
+            return matching.sum()
         }
+
+        fun findBooks(): MutableList<WordCount> {
+            return mutableListOf(
+                Novel(
+                    1,
+                    "Lord of the Rings",
+                    listOf("One ring to rule them all"),
+                    listOf("Chapter 1: A Dwarf lost the ring", "Chapter Two: Found the ring")
+                ),
+                Magazine(2, "Computer Weekly", listOf("Best computers of the decade")),
+                Comic(3, "The batman", listOf("Batman solves crime")),
+            )
+        }
+
+
     }
 }
+
